@@ -52,4 +52,4 @@ anya.on("message", async (message) => {
 });
 
 // Making the bot online in the server
-anya.login(token);
+anya.login(process.env.TOKEN);
