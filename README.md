@@ -10,11 +10,12 @@ To add it to your server:
 
 ## Commands
 
-There are 3 commands that you can use, they are:
+There are 4 commands that you can use, they are:
 
 - **!shibes**, to return a random picture of a Shibe Inu
 - **!birds**, to return a random picture of a bird
 - **!cats**, to return a random picture of a cat
+- **!help**, to show the help embed.
 
 ## Built With
 
