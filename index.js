@@ -13,34 +13,35 @@ anya.on("message", async (message) => {
     if (message.author.bot) return;
 
     // if they aren't:
-    if (message.content === `${prefix}`.concat(message.content.substring(1))) {
-      let animal = message.content.substring(1);
-      if (animal === "shibes" || animal === "birds" || animal === "cats") {
-        let apiURL = `http://shibe.online/api/${animal}?count=1&urls=true&httpsUrls=true`;
-        let response = await axios.get(apiURL);
-        message.channel.send(response.data);
-      }
+    if (message.content.startsWith(prefix)) {
+      let animal = message.content.substring(prefix.length).trim();
+      switch(animal) {
+        case "shibes":
+        case "birds":
+        case "cats":
+          let apiURL = `http://shibe.online/api/${animal}?count=1&urls=true&httpsUrls=true`;
+          let response = await axios.get(apiURL);
+          message.channel.send(response.data);
+          break;
 
-      // Help command
-      else if (message.content === `${prefix}help`) {
-        let embed = new Discord.MessageEmbed()
+        //help command 
+        case "help":
+          let embed = new Discord.MessageEmbed()
           .setTitle("Help Command")
           .setDescription("Help command for users")
           .addFields(
-            { name: "!shibes", value: "Returns a random shibe picture." },
-            { name: "!birds", value: "Returns a random bird picture." },
-            { name: "!cats", value: "Returns a random cat picture." }
+            { name: prefix + "shibes", value: "Returns a random shibe picture." },
+            { name: prefix + "birds", value: "Returns a random bird picture." },
+            { name: prefix + "cats", value: "Returns a random cat picture." }
           )
           .setFooter("Made with love by Anya!")
           .setTimestamp();
 
-        message.channel.send(embed);
-      }
-
-      // Anything that doesn't fit in the above commands
-      else {
-        message.content.send(
-          "Please type !help to see the commands available."
+          message.channel.send(embed);
+          break;
+        default: 
+          message.content.send(
+          `Please type ${prefix}help to see the commands available.`
         );
       }
     }
